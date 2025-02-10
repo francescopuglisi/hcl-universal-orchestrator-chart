@@ -330,7 +330,45 @@ Check the **values.yaml** file for more customization options.
 
 To ensure the integrity and authenticity of the downloaded files, we use GPG (GNU Privacy Guard) encryption. You must have the GPG tool installed on your system to decrypt and verify the files. 
 
-The Orchestration CLI and HCL UnO agent packages are signed with our private key. A corresponding .asc signature file accompanies the downloadable file. You can extract the file and use the public key to decrypt and verify the files. 
+The Orchestration CLI and HCL UnO agent packages are signed with our private key. A corresponding .asc signature file accompanies the downloadable file. You can extract the file and use the public key to decrypt and verify the files.
+
+Importing the GPG Public Key
+
+1.  Import the HCL public GPG key using the following command:
+
+    ```bash
+    gpg --import path-to-gpg-public-key
+    ```
+
+    A successful import generates an output similar to the following:
+
+    ```
+    gpg: /root/.gnupg/trustdb.gpg: trustdb created
+    gpg: key 1E4A814A2159AC84: public key "HCL America Inc." imported
+    gpg: Total number processed: 1
+    gpg:                 imported: 1
+    ```
+
+Verifying the OCLI File
+
+2.  Verify the OCLI file's signature using the following command:
+
+    ```bash
+    gpg --verify path-to-OCLI-file
+    ```
+
+    A successful verification produces an output similar to the following:
+
+    ```
+    gpg: Signature made Tue Jan 14 16:24:39 2025 CET
+    gpg:                using RSA key 1E4A814A2159AC84
+    gpg: Good signature from "HCL America Inc." [unknown]
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg:         There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: A2E5 F8D8 6EB5 1D05 BD14 EFA2 1E4A 814A 2159 AC84
+    ```
+
+    The warning about the uncertified signature can be safely ignored if the fingerprint matches the expected value.
 
 For more information on verifying a file with gpg keys, see [GnuPG documentation](https://www.gnupg.org/gph/en/manual.html). 
 
